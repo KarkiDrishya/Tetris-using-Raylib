@@ -65,7 +65,7 @@ void Grid ::Draw()
         for (int column = 0; column < numcols; column++)
         {
             int cellValue = grid[row][column];
-            DrawRectangle(column * cellsize + 1, row * cellsize + 1, cellsize - 1, cellsize - 1, colors[cellValue]);
+            DrawRectangle(column * cellsize + 11, row * cellsize + 11, cellsize - 1, cellsize - 1, colors[cellValue]);
         }
     }
 }
