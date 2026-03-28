@@ -15,6 +15,7 @@ class Game
     // handles the input that the player provides
     Grid grid;
     bool gameOver; 
+    int score;
 
 private:
     bool IsBlockOutside();
@@ -22,6 +23,7 @@ private:
     void LockBlock();
     bool BlockFits();
     void Reset();
+    void UpdateScore(int linesCleared, int moveDownpoints);
     std::vector<Block>blocks;
     Block currentBlock;
     Block nextBlock;
