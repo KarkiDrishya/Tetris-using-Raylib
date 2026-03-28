@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "game.h"
+#include "colors.h"
 
 
 double lastUpdateTime = 0;
@@ -17,10 +18,12 @@ bool EventTriggered(double interval) // this user defined function is used to br
 }
 
 int main(void){
-    Color darkblue = {44,44,127,255};
-    InitWindow(300,600,"raylib Tetris");
+
+    InitWindow(500,620,"raylib Tetris");
     SetTargetFPS(60);
    
+    Font font = LoadFontEx("Font/monogram.ttf",64,0,0);//Loading the custom font monogram 
+
     Game game = Game();
     
     while(WindowShouldClose()==false)
@@ -31,7 +34,20 @@ int main(void){
             game.MoveBlockDown();
         }
         BeginDrawing();
-        ClearBackground(darkblue);
+        ClearBackground(darkBlue);
+
+        //These draw functions are handling the text and light blue rectangles
+        DrawTextEx(font,"Score",{365,15},38,2,WHITE); //Drawing Font (Arguments : (Font to use, Text to draw, Position to draw the text,font size,spacing between the letters, color))
+        DrawTextEx(font,"Next",{370,175},38,2,WHITE); 
+        DrawTextEx(font,"Next",{370,175},38,2,WHITE);
+        if(game.gameOver)
+        {
+
+            DrawTextEx(font,"Game Over",{320,450},38,2,WHITE); 
+        } 
+        DrawRectangleRounded({320,55,170,60},0.3,6,lightBlue); // Arguments : (Rectangle with position and size, Roundness, Segments, Color)
+        DrawRectangleRounded({320,215,170,180},0.3,6,lightBlue);
+        
         game.Draw();
         EndDrawing();
     }
