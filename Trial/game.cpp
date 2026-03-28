@@ -8,6 +8,20 @@ Game::Game()
     nextBlock = GetRandomBlock();
     gameOver = false;
     score = 0;
+    InitAudioDevice();//Initializes audio devices
+    music = LoadMusicStream("Music/Game_Music.mp3");
+    PlayMusicStream(music);
+    SetMusicVolume(music, 0.2f);
+    move = LoadSound("Music/Move.wav");
+    clearSound = LoadSound("Music/RowClearSound.wav");
+}
+
+Game::~Game()
+{
+    UnloadMusicStream(music);
+    UnloadSound(move);
+    UnloadSound(clearSound);
+    CloseAudioDevice();
 }
 
 Block Game::GetRandomBlock()
@@ -30,7 +44,8 @@ std::vector<Block> Game::GetAllBlocks()
 void Game::Draw()
 {
     grid.Draw();
-    currentBlock.Draw();
+    currentBlock.Draw(11,11);
+    nextBlock.Draw(270,270);
 }
 
 void Game::HandleInput()
@@ -45,16 +60,20 @@ void Game::HandleInput()
     {
     case KEY_LEFT: // KEY_LEFT is the left arrow key in the keyboard (<-)
         MoveBlockLeft();
+        PlaySound(move);
         break;
     case KEY_RIGHT: // KEY_RIGHT is the right arrow key in the keyboard (->)
         MoveBlockRight();
+        PlaySound(move);
         break;
     case KEY_DOWN: // KEY_Down is the down arrow key in the keyboard
         MoveBlockDown();
+        PlaySound(move);
         UpdateScore(0,1);
         break;
     case KEY_UP://KEY_UP is used to rotate the blocks
         RotateBlock();
+        PlaySound(move);
         break;
     }
 }
@@ -129,7 +148,11 @@ void Game::LockBlock()
     }
     nextBlock = GetRandomBlock();
     int rowsCleared = grid.ClearFullRows();//stores the no of rows that is returned by the clearfullrows function for the score.
-    UpdateScore(rowsCleared,0);
+    if(rowsCleared>0)
+    {
+        PlaySound(clearSound);
+        UpdateScore(rowsCleared,0);
+    }
 }
 
 bool Game::BlockFits() //used to check if the cells are empty or not

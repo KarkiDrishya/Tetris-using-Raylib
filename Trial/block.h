@@ -5,10 +5,12 @@
 #include "position.h"
 #include "colors.h"
 using namespace std;
+
 class Block
 { // Block made for inheritance of other 8 big blocks
 public:
     Block();
+    void Draw(int offsetX, int offsetY);
 
     void Draw(); // Declartion of draw function fro block.cpp
 
