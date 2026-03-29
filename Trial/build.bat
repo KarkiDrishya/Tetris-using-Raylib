@@ -7,7 +7,7 @@
 g++ grid.cpp main.cpp position.cpp colors.cpp block.cpp blocks.cpp game.cpp -I C:/raylib/include -L C:/raylib/lib -lraylib -lopengl32 -lgdi32 -lwinmm -o Tetris.exe
 
 :: Here we check if the Compilation was successful or not
-::So since Tetris.exe is overwriiten each time this if else loop just checks
+::So since Tetris.exe is overwriten each time this if else loop just checks
 ::if Tetris.exe was created successfully or not
 ::NOTE - use  start cmd /k Tetris.exe If you want the game to open in a new window and instead of /k use /c if u want the new window to auto close
 IF EXIST Tetris.exe (
